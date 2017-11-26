@@ -1,0 +1,10 @@
+dist/*
+docs/doxygen
+src/*.h.gch
+vgcore.*
+.vagrant
+*.o
+out
+manual.pdf
+isamon
+.idea
