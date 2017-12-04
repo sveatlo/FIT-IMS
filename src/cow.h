@@ -29,11 +29,12 @@ typedef enum {
     Milked
 } DailyState;
 
-class Cow : private Cattle {
+class Cow : public Cattle {
     friend class CowDailyRoutine;
 
 public:
     Cow();
+    ~Cow();
     void Behavior();
 
 private:

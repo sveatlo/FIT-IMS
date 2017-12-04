@@ -28,6 +28,7 @@ private:
 class Calf : public Cattle {
 public:
     Calf(Sex sex);
+    ~Calf();
 
     void Behavior();
 

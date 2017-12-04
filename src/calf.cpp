@@ -2,6 +2,7 @@
 #include "shared.h"
 #include "log.h"
 #include "calf.h"
+#include "cow.h"
 
 Calf::Calf(Sex _sex) {
     Log::info("new calf created");
@@ -10,6 +11,10 @@ Calf::Calf(Sex _sex) {
     this->sex = _sex;
     this->daily_routine_generator = new CalfRoutineGenerator(this);
 
+}
+
+Calf::~Calf() {
+    Log::info("Calf's dead");
 }
 
 void Calf::Behavior() {
@@ -24,11 +29,12 @@ void Calf::Behavior() {
         this->Terminate();
     } else {
         Log::info("Calf is now a grown-up heifer => add to stall if possible, sell otherwise");
-        if(CowsStall.Full()) {
-            this->Terminate();
-        } else {
+        if(!CowsStall.Full()) {
             // create cow
+            (new Cow)->Activate();
         }
+        // Sell it
+        this->Terminate();
     }
 }
 

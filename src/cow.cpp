@@ -1,10 +1,21 @@
 #include "shared.h"
+#include "log.h"
 #include "cow.h"
 
 Cow::Cow() {
+    Log::info("Cow was created");
     this->type = heifer;
     this->sex = female;
+
+    // go to CowsStall
+    Enter(CowsStall, 1);
+
     this->cow_routine_generator = new CowDailyRoutineGenerator(this);
+}
+
+Cow::~Cow() {
+    Log::info("Cows dead");
+    Leave(CowsStall, 1);
 }
 
 void Cow::Behavior() {

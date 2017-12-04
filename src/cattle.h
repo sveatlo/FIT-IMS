@@ -17,7 +17,7 @@ typedef enum {
 
 class Cattle : public Process {
 public:
-    Cattle();
+    virtual void Behavior() =0;
 
 protected:
     Sex sex;

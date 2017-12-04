@@ -5,7 +5,7 @@
 
 #define HOUR 60
 #define DAY 24 * HOUR
-#define YEAR 365.25 * DAY /// 1 year in seconds
+#define YEAR 365.25f * DAY /// 1 year in seconds
 
 // shared stores
 extern Store CalfCareTakers;
