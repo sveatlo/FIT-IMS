@@ -1,10 +1,26 @@
-#include "simlib.h"
+#include <iostream>
+#include <memory>
+#include <simlib.h>
+#include "shared.h"
+#include "log.h"
+#include "calf.h"
+
+
+using namespace std;
+
+class FarmGenerator : public Event {
+     void Behavior() {
+         (new Calf(female))->Activate();
+     }
+};
 
 int main() {
-    Print("Life at a dairy farm - an IMS project experiment\n");
-    SetOutput("dist/model.out");
+    Log::info("Life at a dairy farm - an IMS project experiment");
 
-    Init(0, 31556926); // 31 556 926s = 1y
+    SetOutput("dist/model.out");
+    Init(0, 4 * YEAR); // 31 556 926s = 1y
+
+    (new FarmGenerator)->Activate();
 
     Run();
 
