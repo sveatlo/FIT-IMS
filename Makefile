@@ -4,7 +4,7 @@
 CFLAGS=-std=c++11  -lstdc++ -lpthread -Wall -Wextra -O2 -lsimlib -lm
 CC=gcc
 ## which modules should be build
-MODULES=log farm calf calf_routine cow cow_routine
+MODULES=log farm stall cattle calf_routine #calf cow cow_routine stall
 OBJECT_FILE_PATTERN=$(DIST_DIR)%.o
 SRC_DIR=src/
 DIST_DIR=dist/

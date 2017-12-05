@@ -22,11 +22,14 @@ class Cow : public Cattle {
     friend class CowDailyRoutine;
 
 public:
-    Cow(Farm* farm);
+    Cow(Farm* farm, string _id);
     ~Cow();
     void Behavior();
 
 private:
+    double body_condition = 1;
+    double born_at;
+
     Farm* farm;
     CowDailyRoutineGenerator* cow_routine_generator;
     DailyState state;

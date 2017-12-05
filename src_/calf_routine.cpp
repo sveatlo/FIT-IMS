@@ -1,7 +1,7 @@
 #include "shared.h"
 #include "calf_routine.h"
 
-CalfRoutineGenerator::CalfRoutineGenerator(Cattle* _calf) {
+CalfRoutineGenerator::CalfRoutineGenerator(Calf* _calf) {
     this->calf = _calf;
 }
 
@@ -10,7 +10,7 @@ void CalfRoutineGenerator::Behavior() {
     Activate(Time + 8 * HOUR);
 }
 
-CalfRoutine::CalfRoutine(Cattle* _calf) {
+CalfRoutine::CalfRoutine(Calf* _calf) {
     this->calf = _calf;
 }
 

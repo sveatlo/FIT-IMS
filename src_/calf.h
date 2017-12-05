@@ -17,13 +17,14 @@ class CalfRoutine;
 class Calf : public Cattle {
 friend class CalfRoutine;
 public:
-    Calf(Farm* _farm, Sex _sex);
+    Calf(Farm* _farm);
     ~Calf();
 
     void Behavior();
 
 private:
     Farm* farm;
+    bool grown_up;
     CalfRoutineGenerator* daily_routine_generator;
 };
 

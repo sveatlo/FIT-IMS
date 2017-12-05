@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
     SetOutput("dist/model.out");
     Init(0, 4 * YEAR);
 
-    (new Farm(1, 1, 0, 1, 1))->Activate();
+    (new Farm("SK1234", 1, 0, 1, 1, 1))->Activate();
 
     Run();
 

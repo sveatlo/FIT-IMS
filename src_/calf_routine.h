@@ -2,26 +2,26 @@
 #define CALF_ROUTINE_H
 
 #include <simlib.h>
-#include "cattle.h"
+#include "calf.h"
 
-class Cattle;
+class Calf;
 
 class CalfRoutineGenerator : public Event {
 public:
-    CalfRoutineGenerator(Cattle*);
+    CalfRoutineGenerator(Calf*);
     void Behavior();
 
 private:
-    Cattle* calf;
+    Calf* calf;
 };
 
 class CalfRoutine : public Process {
 public:
-    CalfRoutine(Cattle*);
+    CalfRoutine(Calf*);
     void Behavior();
 
 private:
-    Cattle* calf;
+    Calf* calf;
 };
 
 #endif

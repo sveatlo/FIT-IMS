@@ -3,23 +3,27 @@
 #include "log.h"
 #include "calf.h"
 
-Calf::Calf(Farm* _farm, Sex _sex) {
-    Log::info("new calf created");
-
+Calf::Calf(Farm* _farm) {
     this->farm = _farm;
     this->type = calf;
-    this->sex = _sex;
+    if (Random() < 0.5) {
+        this->sex = male;
+    } else {
+        this->sex = female;
+    }
+
     this->daily_routine_generator = new CalfRoutineGenerator(this);
 }
 
 Calf::~Calf() {
     Log::info("Calf's gone");
+    this->farm->remove_calf();
 }
 
 void Calf::Behavior() {
+    Log::info("Calf was born - " + this->id);
     this->daily_routine_generator->Activate();
 
-    Log::info("Calf was born");
     if (this->sex == male) {
         // young bulls are kept for 1 years, they are sold afterwards
         Wait(1 * YEAR);
@@ -31,14 +35,11 @@ void Calf::Behavior() {
     this->daily_routine_generator->Passivate();
 
     if (this->sex == male) {
-        Log::info("Calf is now a grown-up bull => send to the butcher's house");
         this->Terminate();
     } else {
-        Log::info("Calf is now a grown-up heifer => add to stall if possible, sell otherwise");
-        // if(!Shared::instance()->stall->Full()) {
-        //     // create cow
-        //     Shared::instance()->stall->new_cow();
-        // }
+        if(!this->farm->stall->Full()) {
+            this->farm->calf_to_cow(this->id);
+        }
         // Sell it
         this->Terminate();
     }
