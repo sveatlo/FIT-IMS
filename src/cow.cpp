@@ -22,4 +22,9 @@ Cow::~Cow() {
 
 void Cow::Behavior() {
     this->cow_routine_generator->Activate();
+    Log::debug("cow is doing somehitng for 28 days");
+
+    Activate(Time + 28 * DAY);
+
+    this->cow_routine_generator->Passivate();
 }

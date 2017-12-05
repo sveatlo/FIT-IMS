@@ -7,6 +7,7 @@ CowDailyRoutineGenerator::CowDailyRoutineGenerator(Cow* _cow) {
 }
 
 void CowDailyRoutineGenerator::Behavior() {
+    Log::debug("Cow's daily routine generated. day #" + to_string(((int)Time) / (24 * HOUR)));
     (new CowDailyRoutine(this->cow))->Activate();
     Activate(Time + 12 * HOUR);
 }
