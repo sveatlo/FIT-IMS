@@ -1,7 +1,9 @@
 #ifndef CATTLE_H
 #define CATTLE_H
 
+#include <memory>
 #include <simlib.h>
+
 
 typedef enum {
     male = 0,

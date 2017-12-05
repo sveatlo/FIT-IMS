@@ -1,38 +1,29 @@
 #ifndef CALF_H
 #define CALF_H
 
+#include <memory>
+#include <simlib.h>
+#include "farm.h"
 #include "cattle.h"
+#include "calf_routine.h"
 
 using namespace std;
 
-class Calf;
+class Farm;
+class CalfRoutineGenerator;
+class CalfRoutine;
 
-class CalfRoutineGenerator : public Event {
-public:
-    CalfRoutineGenerator(Calf*);
-    void Behavior();
-
-private:
-    Calf* calf;
-};
-
-class CalfRoutine : public Process {
-public:
-    CalfRoutine(Calf*);
-    void Behavior();
-
-private:
-    Calf* calf;
-};
 
 class Calf : public Cattle {
+friend class CalfRoutine;
 public:
-    Calf(Sex sex);
+    Calf(Farm* _farm, Sex _sex);
     ~Calf();
 
     void Behavior();
 
 private:
+    Farm* farm;
     CalfRoutineGenerator* daily_routine_generator;
 };
 

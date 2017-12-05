@@ -2,25 +2,13 @@
 #define COW_H
 
 #include <simlib.h>
+#include "farm.h"
 #include "cattle.h"
+#include "cow_routine.h"
 
-class Cow;
-
-class CowDailyRoutineGenerator : public Event {
-public:
-    CowDailyRoutineGenerator(Cow*);
-    void Behavior();
-private:
-    Cow* cow;
-};
-
-class CowDailyRoutine : public Process {
-public:
-    CowDailyRoutine(Cow*);
-    void Behavior();
-private:
-    Cow* cow;
-};
+class Farm;
+class CowDailyRoutineGenerator;
+class CowDailyRoutine;
 
 
 typedef enum {
@@ -29,15 +17,17 @@ typedef enum {
     Milked
 } DailyState;
 
+
 class Cow : public Cattle {
     friend class CowDailyRoutine;
 
 public:
-    Cow();
+    Cow(Farm* farm);
     ~Cow();
     void Behavior();
 
 private:
+    Farm* farm;
     CowDailyRoutineGenerator* cow_routine_generator;
     DailyState state;
 };
