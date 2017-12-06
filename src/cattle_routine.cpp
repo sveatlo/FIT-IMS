@@ -42,32 +42,41 @@ void CattleRoutine::Behavior() {
 }
 
 void CattleRoutine::calf_routine() {
-    // Log::debug("Calf routine began");
-
+    // Log::debug("Calf's (#" + this->cattle->get_id() + ") routine began @ " + to_string(Time));
     Enter(*Farm::instance()->employees, 1); // seize 1 caretaker for feeding
-    Wait(Time + Uniform(1, 3)); // it takes 1-3 minutes to start feeding the calf
+    Wait(1 * MINUTE); // it takes 1-3 minutes to start feeding the calf
     Leave(*Farm::instance()->employees, 1); // the calf can eat now
 
-    Wait(Time + 30 * MINUTE); // calfs are given 30 minutes for eating
+    Wait(30 * MINUTE); // calfs are given 30 minutes for eating
 
     Enter(*Farm::instance()->employees, 1); // seize 1 caretaker for cleanup
-    Wait(Time + Uniform(0, 1)); // it takes 1 or less to clean up after eating
+    Wait(Uniform(0, 1) * MINUTE); // it takes 1 or less to clean up after eating
     Leave(*Farm::instance()->employees, 1); // the calf can eat now
 }
 
 void CattleRoutine::cow_routine() {
-    // Log::debug("Cow routine began");
 
     // prepare and start milking
-    Enter(*Farm::instance()->milking_machines, 1);
-    Enter(*Farm::instance()->employees, 1);
-    Wait(Uniform(0.5, 0.75) * MINUTE); // it takes 30-45 seconds to start the milking
-    Leave(*Farm::instance()->employees, 1);
-    // milking
-    Wait(Uniform(4, 5) * MINUTE);
-    // final desinfection and leave
-    Enter(*Farm::instance()->employees, 1);
-    Wait(0.25 * MINUTE);
-    Leave(*Farm::instance()->employees, 1);
-    Leave(*Farm::instance()->milking_machines, 1);
+    auto type = this->cattle->get_cow_type();
+    if (type == milking || type == after_calving) {
+        Enter(*Farm::instance()->milking_machines, 1);
+        Enter(*Farm::instance()->employees, 1);
+        Wait(Uniform(0.5, 0.75) * MINUTE); // it takes 30-45 seconds to start the milking
+        Leave(*Farm::instance()->employees, 1);
+
+        // milking
+        Wait(Uniform(4, 5) * MINUTE);
+        this->cattle->milkings_count++;
+        double milk = this->cattle->compute_milk_production();
+        if (type == milking) {
+            // this->cattle->get_statistics()->milk(milk);
+            Enter(*Farm::instance()->milk_tank, milk);
+        }
+
+        // final disinfection and leave
+        Enter(*Farm::instance()->employees, 1);
+        Wait(0.25 * MINUTE);
+        Leave(*Farm::instance()->employees, 1);
+        Leave(*Farm::instance()->milking_machines, 1);
+    }
 }

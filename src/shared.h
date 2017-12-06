@@ -9,6 +9,8 @@ using namespace std;
 #define DAY 24 * HOUR
 #define YEAR 365.25f * DAY /// 1 year in seconds
 
+#define SIMULATION_LENGTH 5 * YEAR
+
 // death rates
 #define CALVES_DEATH_3DAYS 0.0287
 #define CALVES_DEATH_6MONTHS 0.0669

@@ -4,7 +4,7 @@
 CFLAGS=-std=c++11  -lstdc++ -lpthread -Wall -Wextra -O0 -g -lsimlib -lm
 CC=gcc
 ## which modules should be build
-MODULES=log farm stall cattle cattle_routine
+MODULES=log farm stall cattle cattle_routine cattle_stat
 OBJECT_FILE_PATTERN=$(DIST_DIR)%.o
 SRC_DIR=src/
 DIST_DIR=dist/
@@ -67,6 +67,6 @@ pack: $(SRC_DIR)*.cpp $(SRC_DIR)*.h $(DOCS_SOURCES) Makefile Doxyfile
 	tar cf $(ARCHIVEFILENAME) $(SRC_DIR) $(DIST_DIR) $(DOCS_DIR) $(PDF_FILENAME) Makefile Doxyfile README.md Vagrantfile
 clean:
 	make -C $(DOCS_DIR)manual clean
-	rm -rf ./*.o $(DIST_DIR)$(BINARY_NAME) $(DIST_DIR)*.o $(DIST_DIR)*.a $(DIST_DIR)*.so $(SRC_DIR)*.gch \
+	rm -rf ./*.o $(DIST_DIR)$(BINARY_NAME) $(DIST_DIR)*.o $(DIST_DIR)*.out $(DIST_DIR)*.a $(DIST_DIR)*.so $(SRC_DIR)*.gch \
 			$(ARCHIVEFILENAME) $(DOCS_DIR)doxygen \
 			$(filter-out $(DOCS_SOURCES) , $(wildcard $(DOCS_DIR)manual/*))
