@@ -4,14 +4,11 @@
 #include <memory>
 #include <string>
 #include <simlib.h>
-#include "farm.h"
-#include "calf_routine.h"
+#include "stall.h"
 
 using namespace std;
 
-class Farm;
-class CalfRoutineGenerator;
-class CalfRoutine;
+class Stall;
 
 typedef enum {
     male = 0,
@@ -20,28 +17,48 @@ typedef enum {
 
 typedef enum {
     calf = 0,
-    heifer,
     cow,
     bull
-} Type;
+} CattleType;
+
+typedef enum  {
+    nan = -1,
+    heifer = 0,
+    milking,
+    before_calving,
+    after_calving
+} CowType;
 
 class Cattle : public Process {
-friend class CalfRoutineGenerator;
-friend class CalfRoutine;
+friend class Stall;
 
 public:
+    Cattle(string _id, CattleType _cattle_type, CowType _cow_type, Sex _sex, double _born_at = Time);
     void Behavior();
-    Cattle(Farm* _farm, string _id, Type _type, Sex _sex, double _born_at = Time);
+    void Terminate();
+
+    string get_id();
+    double get_born_at();
+    CattleType get_cattle_type();
+    CowType get_cow_type();
 
 private:
-    double born_at;
     string id;
+    double born_at;
     Sex sex;
-    Type type;
-    Farm* farm;
+    CattleType cattle_type;
+    bool terminated = false;
+    bool in_stall = false;
 
-    // processes
-    CalfRoutineGenerator* calf_routine_generator;
+    // cow-specific attributes
+    CowType cow_type;
+    int lactation_cnt = 0;
+
+    void Enter(shared_ptr<Stall> s, unsigned long ReqCap = 1);
+    void Leave(shared_ptr<Stall> s, unsigned long ReqCap = 1);
+    // type-specific processes
+    void calf_process();
+    void cow_process();
 };
 
 #endif

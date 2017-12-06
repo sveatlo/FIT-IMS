@@ -29,8 +29,8 @@ void Calf::Behavior() {
         Wait(1 * YEAR);
     } else {
         // young heifers are kept as calves until their first rut
-        // this usually happens around 21st month for most heifers
-        Wait(Normal(1.75, 0.25) * YEAR);
+        // this usually happens in their 16th-18th month
+        Wait(Uniform(1.33333333, 1.5) * YEAR);
     }
     this->daily_routine_generator->Passivate();
 

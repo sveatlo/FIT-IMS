@@ -1,10 +1,10 @@
 .PHONY=run all build pack docs banner
 
 # build variables
-CFLAGS=-std=c++11  -lstdc++ -lpthread -Wall -Wextra -O2 -lsimlib -lm
+CFLAGS=-std=c++11  -lstdc++ -lpthread -Wall -Wextra -O0 -g -lsimlib -lm
 CC=gcc
 ## which modules should be build
-MODULES=log farm stall cattle calf_routine #calf cow cow_routine stall
+MODULES=log farm stall cattle cattle_routine
 OBJECT_FILE_PATTERN=$(DIST_DIR)%.o
 SRC_DIR=src/
 DIST_DIR=dist/
