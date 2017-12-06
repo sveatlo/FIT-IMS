@@ -1,0 +1,85 @@
++----------------------------------------------------------+
+| STORE CowsStall                                          |
++----------------------------------------------------------+
+|  Capacity = 1000  (334 used, 666 free)                   |
+|  Time interval = 0 - 2.6298e+06                          |
+|  Number of Enter operations = 334                        |
+|  Minimal used capacity = 1                               |
+|  Maximal used capacity = 334                             |
+|  Average used capacity = 166.16                          |
++----------------------------------------------------------+
+
++----------------------------------------------------------+
+| STORE CalvesStall                                        |
++----------------------------------------------------------+
+|  Capacity = 375  (349 used, 26 free)                     |
+|  Time interval = 0 - 2.6298e+06                          |
+|  Number of Enter operations = 874                        |
+|  Minimal used capacity = 1                               |
+|  Maximal used capacity = 373                             |
+|  Average used capacity = 162.839                         |
++----------------------------------------------------------+
+
++----------------------------------------------------------+
+| STORE Employees                                          |
++----------------------------------------------------------+
+|  Capacity = 8  (2 used, 6 free)                          |
+|  Time interval = 0 - 2.6298e+06                          |
+|  Number of Enter operations = 2677072                    |
+|  Minimal used capacity = 0                               |
+|  Maximal used capacity = 8                               |
+|  Average used capacity = 0.656344                        |
++----------------------------------------------------------+
+  Input queue 'Employees.Q'
++----------------------------------------------------------+
+| QUEUE Q                                                  |
++----------------------------------------------------------+
+|  Time interval = 0 - 2.6298e+06                          |
+|  Incoming  1181491                                       |
+|  Outcoming  1181491                                      |
+|  Current length = 0                                      |
+|  Maximal length = 363                                    |
+|  Average length = 4.68768                                |
+|  Minimal time = 0                                        |
+|  Maximal time = 46                                       |
+|  Average time = 10.434                                   |
+|  Standard deviation = 9.80136                            |
++----------------------------------------------------------+
+
++----------------------------------------------------------+
+| STORE MilkingMachine                                     |
++----------------------------------------------------------+
+|  Capacity = 20  (20 used, 0 free)                        |
+|  Time interval = 0 - 2.6298e+06                          |
+|  Number of Enter operations = 450581                     |
+|  Minimal used capacity = 0                               |
+|  Maximal used capacity = 20                              |
+|  Average used capacity = 0.941815                        |
++----------------------------------------------------------+
+  Input queue 'MilkingMachine.Q'
++----------------------------------------------------------+
+| QUEUE Q                                                  |
++----------------------------------------------------------+
+|  Time interval = 0 - 2.6298e+06                          |
+|  Incoming  387834                                        |
+|  Outcoming  387801                                       |
+|  Current length = 33                                     |
+|  Maximal length = 239                                    |
+|  Average length = 3.39102                                |
+|  Minimal time = 4.75303                                  |
+|  Maximal time = 70.6245                                  |
+|  Average time = 22.9904                                  |
+|  Standard deviation = 14.1616                            |
++----------------------------------------------------------+
+
++----------------------------------------------------------+
+| STORE MilkTank                                           |
++----------------------------------------------------------+
+|  Capacity = 50000  (343 used, 49657 free)                |
+|  Time interval = 0 - 2.6298e+06                          |
+|  Number of Enter operations = 438087                     |
+|  Minimal used capacity = 0                               |
+|  Maximal used capacity = 1704                            |
+|  Average used capacity = 156.932                         |
++----------------------------------------------------------+
+
