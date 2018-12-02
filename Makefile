@@ -1,7 +1,7 @@
 .PHONY=run all build pack docs banner
 
 # build variables
-CFLAGS=-std=c++11  -lstdc++ -lpthread -Wall -Wextra -O0 -g -lsimlib -lm
+CFLAGS=-std=c++11  -lstdc++ -Wall -Wextra -O0 -g -lsimlib -lm
 CC=gcc
 ## which modules should be build
 MODULES=log farm stall cattle cattle_routine cattle_stat
@@ -9,12 +9,12 @@ OBJECT_FILE_PATTERN=$(DIST_DIR)%.o
 SRC_DIR=src/
 DIST_DIR=dist/
 DOCS_DIR=docs/
-BINARY_NAME=simulation
+BINARY_NAME=farmsim
 ARCHIVEFILENAME=xdrdak00.tar
 
 # documentation variables
-DOCS_SOURCES=$(DOCS_DIR)manual/isamon.tex $(DOCS_DIR)manual/czechiso.bst \
-$(DOCS_DIR)manual/references.bib $(DOCS_DIR)manual/Makefile $(DOCS_DIR)manual/images
+DOCS_SOURCES=$(DOCS_DIR)manual/documentation.tex $(DOCS_DIR)manual/czechiso.bst \
+	$(DOCS_DIR)manual/references.bib $(DOCS_DIR)manual/Makefile $(DOCS_DIR)manual/images
 PDF_FILENAME=manual.pdf
 
 all: build $(DIST_DIR)$(BINARY_NAME) banner
@@ -64,7 +64,7 @@ pack: $(SRC_DIR)*.cpp $(SRC_DIR)*.h $(DOCS_SOURCES) Makefile Doxyfile
 	make documentation
 	mv docs/manual/$(PDF_FILENAME) $(PDF_FILENAME)
 	make clean
-	tar cf $(ARCHIVEFILENAME) $(SRC_DIR) $(DIST_DIR) $(DOCS_DIR) $(PDF_FILENAME) Makefile Doxyfile README.md Vagrantfile
+	tar cf $(ARCHIVEFILENAME) $(SRC_DIR) $(DIST_DIR) $(DOCS_DIR) $(PDF_FILENAME) Makefile Doxyfile README.md
 clean:
 	make -C $(DOCS_DIR)manual clean
 	rm -rf ./*.o $(DIST_DIR)$(BINARY_NAME) $(DIST_DIR)*.o $(DIST_DIR)*.out $(DIST_DIR)*.a $(DIST_DIR)*.so $(SRC_DIR)*.gch \

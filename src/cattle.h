@@ -24,7 +24,7 @@ typedef enum {
 } CattleType;
 
 typedef enum  {
-    nan = -1,
+    unknown = -1,
     heifer = 0,
     milking,
     before_calving,

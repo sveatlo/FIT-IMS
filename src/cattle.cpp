@@ -1,3 +1,4 @@
+#include <math.h>
 #include "log.h"
 #include "cattle.h"
 #include "farm.h"
@@ -13,9 +14,9 @@ vector<map<string, int>> lactation_table {
 Cattle::Cattle(string _id, CattleType _cattle_type, CowType _cow_type, Sex _sex, double _born_at) {
     this->id = Farm::instance()->get_id() + _id;
     this->born_at = _born_at;
-    this->cow_type = nan;
+    this->cow_type = unknown;
     this->cattle_type = _cattle_type;
-    this->expected_lifespan = Normal(8, 2);
+    this->expected_lifespan = Normal(8, 1);
     this->milking_potential = Normal(1, 0.1);
 
     this->statistics = new CattleStat(this);
@@ -138,12 +139,14 @@ void Cattle::cow_process() {
     this->in_stall = true;
 
     while(!this->terminated) {
-        double age = Time - this->born_at;
+        double age = (Time - this->born_at) / (YEAR);
 
         int tries;
         for (tries = 5; tries > 0; tries--) {
             Wait(28 * DAY);
-            if (Random() < 0.9) {
+
+            double v = Random() * (pow(0.7, (age - 3)) * (1 - ((age - 3) / this->expected_lifespan)));
+            if (v < 0.9) {
                 break;
             }
         }
@@ -192,6 +195,9 @@ double Cattle::compute_milk_production() {
         value = (lactation["peak_value"] - lactation["start_with"]) / (lactation["peak_at"] * 1.0f);
         value *= lactation_days;
         value += lactation["start_with"];
+    } else if(lactation_days <= lactation["peak_at"] + 50) {
+        double x = (10 - lactation["peak_value"]) / ((300 - lactation["peak_at"] + 50) * 1.0f);
+        value = x * lactation_days + (x * (lactation["peak_at"] + 50) - lactation["peak_value"]) * -1.0f;
     } else if(lactation_days <= lactation["peak_at"]) {
         double x = (10 - lactation["peak_value"]) / ((300 - lactation["peak_at"]) * 1.0f);
         value = x * lactation_days + (x * lactation["peak_at"] - lactation["peak_value"]) * -1.0f;
@@ -225,17 +231,17 @@ int Cattle::get_lactation_day() {
 }
 
 void Cattle::age() {
-    double age = Time - this->born_at;
+    double age = (Time - this->born_at) / (YEAR);
 
-    if ( (int)age / YEAR < 5) {
+    if ( (int)age < 5) {
         this->milking_potential *= 1.125;
-
-        if (Random() * (1.5 + (1 - (age / (this->expected_lifespan * YEAR)))) < 0.2) {
-            Log::warn("Cattle #" + this->get_id() + " is dead by natural selection.");
-            this->Terminate();
-        }
-
     } else {
         this->milking_potential *= 0.9;
+    }
+
+    double v = Random() * (pow(0.7, (age - 3)) * (1 - ((age - 3) / this->expected_lifespan)));
+    if (v < 0.1) {
+        Log::warn("Cattle #" + this->get_id() + " is dead by natural selection.");
+        this->Terminate();
     }
 }

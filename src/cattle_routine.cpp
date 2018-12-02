@@ -8,16 +8,9 @@ CattleRoutine::CattleRoutine(Cattle* cattle) {
 
 void CattleRoutine::Behavior() {
     // calves death rates
-    double new_age = Time - this->cattle->get_born_at();
-    static double age = new_age;
-    if (
-        (age <= 3 * DAY && new_age > 3 * DAY) ||
-        (age <= 0.5 * YEAR && new_age > 0.5 * YEAR)
-    ) {
-        age = new_age;
-    }
+    double age = Time - this->cattle->get_born_at();
 
-    double r = Random();
+    double r = Uniform(0, 1);
     if (this->cattle->get_cattle_type() == calf && (
         (age <= 3 * DAY && r < CALVES_DEATH_3DAYS) ||
         (age > 3 * DAY && age <= 0.5 * YEAR && r < CALVES_DEATH_6MONTHS) ||

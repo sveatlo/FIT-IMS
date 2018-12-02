@@ -1,6 +1,7 @@
 #ifndef COW_STATISTICS_H
 #define COW_STATISTICS_H
 
+#include <cfloat>
 #include <map>
 #include <simlib.h>
 #include <string>
@@ -39,7 +40,7 @@ private:
     map<int, double> histogram;
 
     double total = 0;
-    double min = SIMULATION_LENGTH;
+    double min = DBL_MAX;
     double max = 0;
     double average;
     double first_record = -1;
